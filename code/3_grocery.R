@@ -1,10 +1,5 @@
 # grocs
 
-library(tidyverse)
-library(foreach)
-library(arules)
-library(arulesViz)
-
 grocs <- read.delim(file.path(path, 'data', 'groceries.txt'), header = FALSE)
 
 # splits cart string into a unique obs for each item identified by "cartid"
