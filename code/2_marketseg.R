@@ -1,10 +1,24 @@
 # market segmentation
 social_marketing <- read_csv(file.path('data','social_marketing.csv'))
 
-#preliminary data exploration: clustering
+########################################
+#preliminary data exploration: 
+tweet_counts = social_marketing %>%
+  select(-`...1`)%>%
+  summarise_all(sum) %>% 
+  t() %>%
+  as.data.frame() %>%
+  arrange(desc(V1)) %>%
+  rename('tweet_counts'='V1')
+
+tweet_counts %>% head(10)
+
+
+#################################
+#clustering
 market_noID = social_marketing[,(2:37)]
 
-##Elbow plot
+#Elbow plot
 k_grid = seq(2,20,by=1)
 SSE_grid = foreach(k = k_grid, .combine = 'c') %do% {
   cluster_k = kmeans(market_noID,k,nstart = 25)
@@ -20,8 +34,6 @@ rownames(social_marketing) <- social_marketing$`...1`
 social_clustered = cbind(social_marketing,clusterID) %>%
   mutate(`...1` = NULL)
 
-
-
 # A few plots with cluster membership shown
 # qplot is in the ggplot2 library
 qplot(current_events, sports_fandom, data=market_noID, color=factor(clust1$cluster))
@@ -30,26 +42,43 @@ qplot(religion, sports_fandom, data=market_noID, color=factor(clust1$cluster))
 centroids = as.data.frame(clust1[["centers"]])
 df = social_clustered[,(1:36)]
 
+#################################
+#PCA
+market_PCA = prcomp(social_clustered[,(1:36)], scale=FALSE, rank=5)
 
-market_PCA = prcomp(social_clustered[,(1:36)], scale=FALSE, rank=10)
-round(market_PCA$rotation[,1:10],2)
-plot(market_PCA)
-df = as.data.frame(round(market_PCA$rotation[,1:10],2))
+market_PCA_variance_plot = plot(market_PCA)
 
-# shows = merge(shows, PCApilot$x[,1:3], by="row.names")
-# shows = rename(shows, Show = Row.names)
+social_PCLuster = cbind(social_clustered, market_PCA$x)
 
-categorized_data = social_marketing %>%
-  select(-`...1`)
-categorized_data =  as.data.frame(t(categorized_data))
-market_PCA2 = prcomp(categorized_data[,(1:36)], scale=FALSE, rank=5)
-round(market_PCA2$rotation[,1:5],2)
-  
-  group_by(Show) %>% 
-  select(-Viewer) %>%
-  summarize_all(mean) %>%
-  column_to_rownames(var="Show") 
-  
+# ggplot(shows) + 
+#   geom_col(aes(x=reorder(Show, PC1), y=PC1)) + 
+#   coord_flip()
 
+PCA_Scores =  market_PCA$rotation %>%
+  as.data.frame() %>%
+  rownames_to_column('Category')
 
+ggplot(PCA_Scores) +
+  geom_col(aes(x=reorder(Category,PC1), y=PC1)) +
+  coord_flip()
 
+ggplot(PCA_Scores) +
+  geom_col(aes(x=reorder(Category,PC2), y=PC2)) +
+  coord_flip()
+
+ggplot(PCA_Scores) +
+  geom_col(aes(x=reorder(Category,PC3), y=PC3)) +
+  coord_flip()
+
+ggplot(PCA_Scores) +
+  geom_col(aes(x=reorder(Category,PC4), y=PC4)) +
+  coord_flip()
+
+ggplot(PCA_Scores) +
+  geom_col(aes(x=reorder(Category,PC5), y=PC5)) +
+  coord_flip()
+
+cluster_counts = social_PCLuster %>%
+  group_by(clusterID) %>%
+  summarise(count = n(), 
+            PC1 = mean(PC1), PC2 = mean(PC2), PC3 = mean(PC3), PC4 = mean(PC4), PC5 = mean(PC5))
