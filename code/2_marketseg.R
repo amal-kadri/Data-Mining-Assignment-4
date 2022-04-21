@@ -11,6 +11,17 @@ tweet_counts = social_marketing %>%
   arrange(desc(V1)) %>%
   rename('tweet_counts'='V1')
 
+tweet_means = social_marketing %>%
+  select(-`...1`)%>%
+  summarise_all(mean) %>% 
+  t() %>%
+  as.data.frame() %>%
+  arrange(desc(V1)) %>%
+  rename('mean_tweets'='V1')
+
+beat_tweets = merge(tweet_counts,tweet_means,by=0)
+  
+
 tweet_counts %>% head(10)
 
 
@@ -39,7 +50,13 @@ social_clustered = cbind(social_marketing,clusterID) %>%
 qplot(current_events, sports_fandom, data=market_noID, color=factor(clust1$cluster))
 qplot(religion, sports_fandom, data=market_noID, color=factor(clust1$cluster))
 qplot(religion, sports_fandom, data=market_noID, color=factor(clust1$cluster))
-centroids = as.data.frame(clust1[["centers"]])
+centroids = as.data.frame(clust1[["centers"]]) %>%
+  rownames_to_column('clusterID')
+
+#Labeling Clusters
+BallsNBibles = centroids %>% arrange(desc(sports_fandom)) %>% select(clusterID) %>% head(1) %>% as.numeric()
+
+
 df = social_clustered[,(1:36)]
 
 #################################
