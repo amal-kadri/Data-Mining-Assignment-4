@@ -15,7 +15,7 @@ mu = attr(Y,"scaled:center")
 sigma = attr(Y,"scaled:scale")
 
 #cluster
-clust1 = kmeans(Y, 10, nstart=25)
+clust1 = kmeans(Y, 6, nstart=25)
 clusterID = clust1$cluster
 
 #cluster centers
@@ -73,6 +73,8 @@ wine_PCLuster = cbind(wine_clustered, wine_PCA$x)
 #color plot
 qplot(PC2, PC1, data=wine_PCLuster, color=factor(wine_PCLuster$cluster), shape = color)
 
+#color 
+
 #reds appear to have low magnitudes of PC1 and PC2 and whites appear to have high magnitudes of PC1 and PC2
 
 #quality plot
@@ -108,7 +110,8 @@ cluster_counts = wine_PCLuster %>%
   summarise(count = n(), 
             PC1 = mean(PC1), 
             PC2 = mean(PC2),
-            avg_qual = mean(quality))
+            avg_qual = mean(quality)) %>% 
+  arrange(desc(PC1))
 
 ########################################
 
@@ -120,5 +123,14 @@ h2 = hclust(wine_dist, method='complete')
 c2 = cutree(h2, 2)
 D2 = data.frame(wine_PCLuster, z = c2)
 ggplot(D2) + geom_point(aes(x=PC1, y=PC2, col=factor(z), shape=color))
-ggplot(D2) + geom_point(aes(x=PC1, y=PC2, col=color , shape=factor(z)))
+ggplot(D2) + geom_point(aes(x=PC1, y=PC2, col=color, shape=factor(z)))
+
+
+#################
+
+# save/file put in output as .RData
+
+# save/image the rm()
+
+# .rds for local quick loading data structure
 
