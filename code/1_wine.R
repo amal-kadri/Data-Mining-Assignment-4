@@ -71,12 +71,12 @@ wine_PCA_variance_plot = plot(wine_PCA)
 wine_PCLuster = cbind(wine_clustered, wine_PCA$x)
 
 #color plot
-qplot(PC2, PC1, data=wine_PCLuster, color=factor(clust1$cluster), shape = color)
+qplot(PC2, PC1, data=wine_PCLuster, color=factor(wine_PCLuster$cluster), shape = color)
 
 #reds appear to have low magnitudes of PC1 and PC2 and whites appear to have high magnitudes of PC1 and PC2
 
 #quality plot
-qplot(PC2, PC1, data=wine_PCLuster, color=factor(clust1$cluster), shape = color)
+qplot(PC2, PC1, data=wine_PCLuster, color=factor(wine_PCLuster$quality), shape = color)
 
 
 PCA_Scores =  wine_PCA$rotation %>%
@@ -106,7 +106,9 @@ ggplot(PCA_Scores) +
 cluster_counts = wine_PCLuster %>%
   group_by(clusterID, color) %>%
   summarise(count = n(), 
-            PC1 = mean(PC1), PC2 = mean(PC2))
+            PC1 = mean(PC1), 
+            PC2 = mean(PC2),
+            avg_qual = mean(quality))
 
 ########################################
 
