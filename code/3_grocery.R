@@ -16,59 +16,108 @@ groceries <- foreach(i = 1:obs, .combine = rbind) %do% {
   
   split
 }
-
 groceries$cartid = factor(groceries$cartid)
 
+
+
+# regular
 groceries_list = split(x=groceries$item, f=groceries$cartid)
-
-## Remove duplicates ("de-dupe")
-# lapply says "apply a function to every element in a list"
-# unique says "extract the unique elements" (i.e. remove duplicates)
-
-## Cast this resulting list of playlists as a special arules "transactions" class.
 groctrans = as(groceries_list, "transactions")
-summary(groctrans)
-
-# Now run the 'apriori' algorithm
-# Look at rules with support > .01 & confidence >.1 & length (# artists) <= 5
 grocrules = apriori(groctrans, 
-                     parameter=list(support=.01, confidence=.1, maxlen=2))
-
-
-
-# Look at the output... so many rules!
+                    parameter=list(support=.001, confidence=.5, maxlen=10))
 inspect(grocrules)
+sub_milk = subset(grocrules, subset = confidence >= .8 & support >= .003)
+saveAsGraph(sub_milk, file = file.path(path, 'output', 'grocrules.graphml'))
 
-## Choose a subset
-inspect(subset(grocrules, lift > 3))
-inspect(subset(grocrules, confidence > 0.6))
-inspect(subset(grocrules, lift > 3 & confidence > 0.05))
-
-# plot all the rules in (support, confidence) space
-# notice that high lift rules tend to have low support
 plot(grocrules)
-
-# can swap the axes and color scales
 plot(grocrules, measure = c("support", "lift"), shading = "confidence")
-
-# "two key" plot: coloring is by size (order) of item set
 plot(grocrules, method='two-key plot')
-
-# can now look at subsets driven by the plot
-inspect(subset(grocrules, support > 0.035))
-inspect(subset(grocrules, confidence > 0.6))
-
-
-# graph-based visualization
-sub1 = subset(grocrules, subset=confidence > 0.01 & support > 0.005)
-summary(sub1)
-plot(sub1, method='graph')
-?plot.rules
-
 plot(head(sub1, 100, by='lift'), method='graph')
+
+# labeling carts that don't have milk in them to study these
+groceries_milktag <- groceries %>% 
+  filter(item == "whole milk") %>% 
+  merge(groceries, by = "cartid", all = TRUE, suffix = c("", ".x")) %>% 
+  mutate(item = ifelse(is.na(item) == T, "no milk", item)) %>% 
+  filter(item == "no milk") %>% 
+  select(- item.x) %>% 
+  unique.array() %>% 
+  rbind(groceries) %>% 
+  arrange(cartid)
+
+milktag_list <- split(x=groceries_milktag$item, f=groceries_milktag$cartid)
+milktrans = as(milktag_list, "transactions")
+milkrules = apriori(milktrans, 
+                    parameter=list(support=.003, confidence=.85, maxlen=10))
+inspect(milkrules)
+milk_tag = subset(milkrules)
+saveAsGraph(milk_tag, file = file.path(path, 'output', 'milkrules.graphml'))
+
+# no milk filtering out milk, perhaps we don't need this
+groceries_nomilk <- groceries %>% 
+  filter(item != "whole milk" & 
+           item != "other vegetables" &
+           item != "yogurt")
+groceries_nomilk_list  = split(x=groceries_nomilk$item, f=groceries_nomilk$cartid)
+groctrans_nomilk = as(groceries_nomilk_list, "transactions")
+grocrules_nomilk = apriori(groctrans_nomilk, 
+                    parameter=list(support=.003, confidence=.5, maxlen=10))
+inspect(grocrules_nomilk)
+sub_nomilk <- subset(grocrules_nomilk)
+saveAsGraph(sub_nomilk, file = file.path(path, 'output', 'grocrules_nomilk.graphml'))
+
+
+
+
 
 # Then use the data on grocery purchases in groceries.txt and find some interesting association rules for these shopping baskets. 
 
 # Pick your own thresholds for lift and confidence; just be clear what these thresholds are and how you picked them. 
 # Do your discovered item sets make sense? 
 # Present your discoveries in an interesting and concise way.
+
+# groceries_tags <- groceries %>% 
+#   group_by(item) %>% 
+#   summarise(count = length(item), .groups = 'drop') %>%
+#   arrange(desc(count)) %>% 
+#   mutate(tag = case_when(item == "pork" | 
+#                            item == "chicken" | 
+#                            item == "beef" |
+#                            item == "sausage" |
+#                            item ==  "frankfurter" |
+#                            item == "hamburger meat" |
+#                            item == "meat spreads" |
+#                            item == "liver loaf" |
+#                            item == "turkey" |
+#                            item == "meat" |
+#                            item == "ham" ~ "meat", 
+#                          item == "whole milk" |
+#                            item == "yogurt" |
+#                            item == "whipped/sour cream" |
+#                            item == "curd" |
+#                            item == "butter" |
+#                            item == "cream cheese " |
+#                            item == "UHT-milt" |
+#                            item == "butter milk"  |
+#                            item == "cream" |
+#                            item == "curd cheese" |
+#                            item == "specialty cheese" |
+#                            item == "condensed milk" |
+#                            item == "spread cheese" |
+#                            item == "processed cheese" |
+#                            item == "soft cheese" |
+#                            item == "ice cream" |
+#                            item == "sliced cheese" |
+#                            item == "hard cheese" ~ "dairy"))
+
+# # plot all the rules in (support, confidence) space
+# # notice that high lift rules tend to have low support
+# plot(grocrules)
+# 
+# # can swap the axes and color scales
+# plot(grocrules, measure = c("support", "lift"), shading = "confidence")
+# 
+# # "two key" plot: coloring is by size (order) of item set
+# plot(grocrules, method='two-key plot')
+# 
+

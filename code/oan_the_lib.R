@@ -9,6 +9,7 @@ library(LICORS)  # for kmeans++
 library(foreach)
 library(mosaic)
 library(foreach)
+library(iterators)
 
 
 path <- here()
