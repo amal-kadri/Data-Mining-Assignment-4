@@ -19,10 +19,11 @@ tweet_means = social_marketing %>%
   arrange(desc(V1)) %>%
   rename('mean_tweets'='V1')
 
-beat_tweets = merge(tweet_counts,tweet_means,by=0)
+beat_tweets = merge(tweet_counts,tweet_means,by=0) %>% 
+  arrange(desc(tweet_counts))
   
 
-tweet_counts %>% head(10)
+beat_tweets %>% head(10)
 
 
 #################################
@@ -49,7 +50,8 @@ social_clustered = cbind(social_marketing,clusterID) %>%
 # qplot is in the ggplot2 library
 qplot(current_events, sports_fandom, data=market_noID, color=factor(clust1$cluster))
 qplot(religion, sports_fandom, data=market_noID, color=factor(clust1$cluster))
-qplot(religion, sports_fandom, data=market_noID, color=factor(clust1$cluster))
+qplot(parenting, sports_fandom, data=market_noID, color=factor(clust1$cluster))
+qplot(chatter, photo_sharing, data=market_noID, color=factor(clust1$cluster))
 centroids = as.data.frame(clust1[["centers"]]) %>%
   rownames_to_column('clusterID')
 
@@ -99,3 +101,11 @@ cluster_counts = social_PCLuster %>%
   group_by(clusterID) %>%
   summarise(count = n(), 
             PC1 = mean(PC1), PC2 = mean(PC2), PC3 = mean(PC3), PC4 = mean(PC4), PC5 = mean(PC5))
+
+qplot(PC3, PC2, data=cluster_counts, color=factor(clusterID))
+qplot(PC3, PC4, data=cluster_counts, color=factor(clusterID)) #### investigate
+
+#Centroid PCA
+center_PCA = prcomp(centroids[,(2:37)], scale=FALSE, rank=5)
+plot(center_PCA)
+centers_Scored = cbind(centroids, center_PCA$x)
