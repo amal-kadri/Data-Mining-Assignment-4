@@ -9,3 +9,21 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{r load, include=FALSE}
+library(here)
+
+path <- here()
+
+# load objects that need to be included in .rmd writeup 
+load(file = file.path(path, 'output', 'tabs_figs', 'arules_tabsNfigs.RData'))
+```
+
+```{r groceries, include = TRUE}
+high_lift
+high_conf
+conf_sup
+lift_sup
+twokey
+nomilk_tab
+milk_tab
+```
