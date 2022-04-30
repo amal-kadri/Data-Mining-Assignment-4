@@ -42,8 +42,9 @@ high_lift <- grocrules_df %>%
 
 # conf table
 high_conf <- grocrules_df %>% 
-  arrange(desc(confidence)) %>% 
-  slice_head(n = 10) %>% 
+  arrange(desc(support)) %>% 
+  slice_head(n = 10) %>%
+    arrange(desc(confidence))
   kable(caption = "High Confidence Rules")
 
 # repeat these commands in the rmd since they 
