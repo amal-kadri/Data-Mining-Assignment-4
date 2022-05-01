@@ -62,7 +62,7 @@ When graphing the principal components on one another, there is a clear separati
 ```{r, include=TRUE}
 qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), shape=factor(clusterID))
 ```
-The quality ratings were more difficult to visualize as they relate to the clusters due to the number of features. What is noticeable is that quality does not appear to be associated with either of the principal components, but is rather spread out through the data in the 5-6 range. We will return to this fact at the final table.
+The quality ratings were more difficult to visualize as they relate to the clusters due to the number of values in the features. What is noticeable is that quality does not appear to be associated with either of the principal components, but is rather spread out through the data in the 5-6 range. We will return to this fact at the final table.
 
 ```{r, include=TRUE}
 ggplot(PCA_Scores) +
