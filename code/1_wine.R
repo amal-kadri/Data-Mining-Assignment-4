@@ -79,13 +79,15 @@ q1_PC2_plot = ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC2), y=PC2)) +
   coord_flip()
 
+q1_PC2_plot
 
 q1_cluster_counts_table = wine_PCLuster %>%
   group_by(clusterID, color) %>%
-  summarise(count = n(), 
+  summarise(Count = n(), 
             PC1 = mean(PC1), 
             PC2 = mean(PC2),
-            avg_qual = mean(quality)) 
+            Average_Quality = mean(quality)) %>% 
+  kable(caption = "Color/Quality Table")
 
 save.image(file = file.path(path, 'output', 'tabs_figs', 'wine_tabsNfigs.RData'))
 

@@ -40,13 +40,19 @@ After centering and re-scaling the data, I ran a for loop to generate an elbow p
 plot(SSE_grid)
 ```
 
+I tried several k values and settled on 7 after comparing how well the clusters could designate red vs white wine.
+
 ```{r, include=TRUE}
 q1_sulfur_plot
 ```
 
+After trying out various parameters for preliminary visualization, I found that the data points separated the most with total.sulfur.dioxide and free.sulfur.dioxide parameters. These properties will later be shown to be the most crucial aspects in the principal component definitions.
+
 ```{r, include=TRUE}
 plot(wine_PCA)
 ```
+The PCA for this data was able to explain the vast majority of the information with a single dimension. I elected to choose 2 
+
 
 ```{r, include=TRUE}
 q1_color_plot
@@ -63,18 +69,13 @@ ggplot(PCA_Scores) +
 ```
 
 ```{r, include=TRUE}
-q1_PC2_plot = ggplot(PCA_Scores) +
+ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC2), y=PC2)) +
   coord_flip()
 ```
 
 ```{r, include=TRUE}
-wine_PCLuster %>%
-  group_by(clusterID, color) %>%
-  summarise(count = n(), 
-            PC1 = mean(PC1), 
-            PC2 = mean(PC2),
-            avg_qual = mean(quality)) 
+q1_cluster_counts_table
 ```
 
 
