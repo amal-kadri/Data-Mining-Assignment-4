@@ -51,33 +51,40 @@ After trying out various parameters for preliminary visualization, I found that 
 ```{r, include=TRUE}
 plot(wine_PCA)
 ```
-The PCA for this data was able to explain the vast majority of the information with a single dimension. I elected to choose 2 
+The PCA for this data was able to explain the vast majority of the information with a single dimension. I elected to choose 2 for since there are two distinct types of wine in the data set and for visualization purposes.
 
 
 ```{r, include=TRUE}
 q1_color_plot
 ```
+When graphing the principal components on one another, there is a clear separation in the two colors of wine. Specifically, reds appear to have low magnitudes of PC1 and PC2 and whites appear to have high magnitudes of PC1 and PC2.
 
 ```{r, include=TRUE}
 qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), shape=factor(clusterID))
 ```
+The quality ratings were more difficult to visualize as they relate to the clusters due to the number of features. What is noticeable is that quality does not appear to be associated with either of the principal components, but is rather spread out through the data in the 5-6 range. We will return to this fact at the final table.
 
 ```{r, include=TRUE}
 ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC1), y=PC1)) +
   coord_flip()
 ```
+As state prior, the dominant force in the principal components was the sulfur content. In PC1 total.sulfur.dioxide stood out as the classifying feature from free.sulfur dioxide by several orders of magnitude.
 
 ```{r, include=TRUE}
 ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC2), y=PC2)) +
   coord_flip()
 ```
+PC2 is defined by free.sulfur.dioxide as well as a lack of total.sulfur.dioxide, the main feature of PC1.
 
 ```{r, include=TRUE}
 q1_cluster_counts_table
 ```
 
+This table presents the noise in the data in a much more manageable way. What becomes immediately apparent is the clusters ability to determine which color a type of wine is. Cluster 2 is overwhelmingly white, while cluster 4 is decidedly red. It's also clear that red wines are tend to have large negative values or small positive values for PC1 while white tend to have large positive values or low negative values for PC1, indicating that the main difference between red and white wine is the total.sulfur.dioxide present.
+
+The average quality for each color/cluster demonstrates a disconnect between the chemical contents of the wine and it's subjective score. While there is some variance between the clusters the range between the highest rated color/cluster does not exceed 2 scores of quality. These results could indicate that wine quality is not determined by chemical content. It could also mean that while vast differences in quality are easily identifiable, what separates a wine with score of 8 verses a score of 9 in terms of quality is negligible enough to be come obscured over successive tastings.
 
 
 ## Problem 3 - GrocRules
