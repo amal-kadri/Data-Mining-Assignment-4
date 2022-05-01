@@ -10,7 +10,20 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r load, include=FALSE}
+# owning:
 library(here)
+library(tidyverse)
+library(foreach)
+library(arules)
+library(arulesViz)
+library(ggplot2)
+library(LICORS)  # for kmeans++
+library(foreach)
+library(mosaic)
+library(foreach)
+library(iterators)
+library(knitr)
+
 
 path <- here()
 
@@ -25,14 +38,16 @@ After centering and re-scaling the data, I ran a for loop to generate an elbow p
 
 ```{r, include=FALSE}
 plot(SSE_grid)
-
 ```
+
 ```{r, include=FALSE}
 q1_sulfur_plot
 ```
+
 ```{r, include=FALSE}
 plot(wine_PCA)
 ```
+
 ```{r, include=FALSE}
 q1_color_plot
 ```
@@ -41,12 +56,12 @@ q1_color_plot
 qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), shape=factor(clusterID))
 ```
 
-
 ```{r, include=FALSE}
 ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC1), y=PC1)) +
   coord_flip()
 ```
+
 ```{r, include=FALSE}
 q1_PC2_plot = ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC2), y=PC2)) +

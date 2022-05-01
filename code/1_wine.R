@@ -36,8 +36,6 @@ clust1$center[7,]*sigma + mu
 
 centers = as.data.frame(clust1[["centers"]])
 
-#get vars for dim selection
-colVars(as.matrix(wine[sapply(wine, is.numeric)]))
 
 # Best differentiation of cluster membership is total.sulfur.dioxide and free.sulfur.dioxide
 q1_sulfur_plot = qplot(total.sulfur.dioxide, free.sulfur.dioxide, data=wine, color=factor(clust1$cluster), shape = color)
