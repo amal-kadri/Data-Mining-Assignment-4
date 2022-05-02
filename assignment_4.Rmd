@@ -23,12 +23,17 @@ library(mosaic)
 library(foreach)
 library(iterators)
 library(knitr)
+library(gridExtra)
+library(grid)
 
 
 path <- here()
-
 load(file = file.path(path, 'output', 'tabs_figs', 'wine_tabsNfigs.RData'))
+path <- here()
 load(file = file.path(path, 'output', 'tabs_figs', 'arules_tabsNfigs.RData'))
+path <- here()
+load(file = file.path(path, 'output', 'tabs_figs', '2_marketseg_tabsNfigs.RData'))
+path <- here()
 
 ```
 

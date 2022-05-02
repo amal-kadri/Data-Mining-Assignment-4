@@ -202,8 +202,8 @@ gamers_chatter = ggplot(centroids) +
                  shape = factor(clusterID==CollegeGamers),
                  size = factor(clusterID==CollegeGamers)))
 CollegeGamers_graph = grid_arrange_shared_legend(gamers_college,gamers_sports,gamers_chatter)  
-  
-save.image(here('output/2_marketseg_image.RData'))
-  
+
+save.image(file = file.path(path, 'output', 'tabs_figs', '2_marketseg_tabsNfigs.RData'))
+
   
   
