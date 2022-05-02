@@ -2,7 +2,7 @@
 title: "Assignment 4"
 author: "John Bowman, Amal Kadri, David Scolari"
 date: "4/19/2022"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}

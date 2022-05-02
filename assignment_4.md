@@ -16,44 +16,43 @@ found that the data points separated the most with total.sulfur.dioxide
 and free.sulfur.dioxide parameters. These properties will later be shown
 to be the most crucial aspects in the principal component definitions.
 
-![](assignment_4_files/figure-markdown_strict/unnamed-chunk-3-1.png) The
-PCA for this data was able to explain the vast majority of the
-information with a single dimension. I elected to choose 2 for since
-there are two distinct types of wine in the data set and for
-visualization purposes.
+![](assignment_4_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
-    ## Warning: The shape palette can deal with a maximum of 6 discrete values because
-    ## more than 6 becomes difficult to discriminate; you have 7. Consider
-    ## specifying shapes manually if you must have them.
-
-    ## Warning: Removed 33 rows containing missing values (geom_point).
+The PCA for this data was able to explain the vast majority of the
+information with a single dimension. I elected to choose 2 since there
+are two distinct types of wine in the data set and for visualization
+purposes.
 
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-4-1.png)
+
 When graphing the principal components on one another, there is a clear
 separation in the two colors of wine. Specifically, reds appear to have
-low magnitudes of PC1 and PC2 and whites appear to have high magnitudes
-of PC1 and PC2.
+low magnitudes of PC1 and PC2 and whites appear to have higher
+magnitudes of PC1 and PC2.
 
     ## Warning: The shape palette can deal with a maximum of 6 discrete values because
     ## more than 6 becomes difficult to discriminate; you have 7. Consider
     ## specifying shapes manually if you must have them.
 
-    ## Warning: Removed 33 rows containing missing values (geom_point).
+    ## Warning: Removed 1469 rows containing missing values (geom_point).
 
-![](assignment_4_files/figure-markdown_strict/unnamed-chunk-5-1.png) The
-quality ratings were more difficult to visualize as they relate to the
-clusters due to the number of values in the features. What is noticeable
-is that quality does not appear to be associated with either of the
-principal components, but is rather spread out through the data in the
-5-6 range. We will return to this fact at the final table.
+![](assignment_4_files/figure-markdown_strict/unnamed-chunk-5-1.png)
 
-![](assignment_4_files/figure-markdown_strict/unnamed-chunk-6-1.png) As
-state prior, the dominant force in the principal components was the
+The quality ratings were more difficult to visualize as they relate to
+the clusters due to the number of values in the features. What is
+noticeable is that quality does not appear to be associated with either
+of the principal components, but is rather spread out through the data
+in the 5-6 range. We will return to this fact at the final table.
+
+![](assignment_4_files/figure-markdown_strict/unnamed-chunk-6-1.png)
+
+As state prior, the dominant force in the principal components was the
 sulfur content. In PC1 total.sulfur.dioxide stood out as the classifying
 feature from free.sulfur dioxide by several orders of magnitude.
 
-![](assignment_4_files/figure-markdown_strict/unnamed-chunk-7-1.png) PC2
-is defined by free.sulfur.dioxide as well as a lack of
+![](assignment_4_files/figure-markdown_strict/unnamed-chunk-7-1.png)
+
+PC2 is defined by free.sulfur.dioxide as well as a lack of
 total.sulfur.dioxide, the main feature of PC1.
 
 <table>
@@ -72,45 +71,13 @@ total.sulfur.dioxide, the main feature of PC1.
 <tr class="odd">
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">red</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">-17.753428</td>
-<td style="text-align: right;">3.5167563</td>
-<td style="text-align: right;">5.200000</td>
+<td style="text-align: right;">623</td>
+<td style="text-align: right;">-75.835023</td>
+<td style="text-align: right;">1.2348555</td>
+<td style="text-align: right;">5.906902</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
-<td style="text-align: left;">white</td>
-<td style="text-align: right;">980</td>
-<td style="text-align: right;">33.226994</td>
-<td style="text-align: right;">0.1943185</td>
-<td style="text-align: right;">5.937755</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">red</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">14.245392</td>
-<td style="text-align: right;">14.4058073</td>
-<td style="text-align: right;">6.000000</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">2</td>
-<td style="text-align: left;">white</td>
-<td style="text-align: right;">1468</td>
-<td style="text-align: right;">59.104686</td>
-<td style="text-align: right;">3.4238866</td>
-<td style="text-align: right;">5.621935</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">3</td>
-<td style="text-align: left;">red</td>
-<td style="text-align: right;">624</td>
-<td style="text-align: right;">-75.765873</td>
-<td style="text-align: right;">1.2820173</td>
-<td style="text-align: right;">5.908654</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3</td>
 <td style="text-align: left;">white</td>
 <td style="text-align: right;">15</td>
 <td style="text-align: right;">12.442049</td>
@@ -118,55 +85,7 @@ total.sulfur.dioxide, the main feature of PC1.
 <td style="text-align: right;">4.933333</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">red</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">35.802692</td>
-<td style="text-align: right;">-14.3143548</td>
-<td style="text-align: right;">5.888889</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">white</td>
-<td style="text-align: right;">1215</td>
-<td style="text-align: right;">2.861806</td>
-<td style="text-align: right;">-5.7205112</td>
-<td style="text-align: right;">5.677366</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">red</td>
-<td style="text-align: right;">885</td>
-<td style="text-align: right;">-70.367496</td>
-<td style="text-align: right;">1.7985294</td>
-<td style="text-align: right;">5.428249</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: left;">white</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">-19.580171</td>
-<td style="text-align: right;">-8.5305425</td>
-<td style="text-align: right;">4.725490</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">red</td>
-<td style="text-align: right;">32</td>
-<td style="text-align: right;">-58.731518</td>
-<td style="text-align: right;">3.1655819</td>
-<td style="text-align: right;">6.500000</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: left;">white</td>
-<td style="text-align: right;">1162</td>
-<td style="text-align: right;">-7.923514</td>
-<td style="text-align: right;">-0.0300585</td>
-<td style="text-align: right;">6.432014</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: left;">red</td>
 <td style="text-align: right;">27</td>
 <td style="text-align: right;">-65.647080</td>
@@ -174,12 +93,92 @@ total.sulfur.dioxide, the main feature of PC1.
 <td style="text-align: right;">5.333333</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: left;">white</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">70.537750</td>
 <td style="text-align: right;">-11.8262665</td>
 <td style="text-align: right;">4.666667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">red</td>
+<td style="text-align: right;">885</td>
+<td style="text-align: right;">-70.367496</td>
+<td style="text-align: right;">1.7985294</td>
+<td style="text-align: right;">5.428249</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">white</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">-19.580171</td>
+<td style="text-align: right;">-8.5305425</td>
+<td style="text-align: right;">4.725490</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">red</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">-18.464481</td>
+<td style="text-align: right;">4.8094759</td>
+<td style="text-align: right;">5.285714</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">white</td>
+<td style="text-align: right;">969</td>
+<td style="text-align: right;">33.271638</td>
+<td style="text-align: right;">0.1272341</td>
+<td style="text-align: right;">5.937049</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">red</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">-58.731518</td>
+<td style="text-align: right;">3.1655819</td>
+<td style="text-align: right;">6.500000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">white</td>
+<td style="text-align: right;">1169</td>
+<td style="text-align: right;">-7.765523</td>
+<td style="text-align: right;">-0.0292344</td>
+<td style="text-align: right;">6.431138</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">red</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">35.802692</td>
+<td style="text-align: right;">-14.3143548</td>
+<td style="text-align: right;">5.888889</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">white</td>
+<td style="text-align: right;">1220</td>
+<td style="text-align: right;">3.059332</td>
+<td style="text-align: right;">-5.6388062</td>
+<td style="text-align: right;">5.677049</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">red</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">14.245392</td>
+<td style="text-align: right;">14.4058073</td>
+<td style="text-align: right;">6.000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">white</td>
+<td style="text-align: right;">1467</td>
+<td style="text-align: right;">59.102522</td>
+<td style="text-align: right;">3.4230247</td>
+<td style="text-align: right;">5.621677</td>
 </tr>
 </tbody>
 </table>
@@ -269,15 +268,16 @@ these 4.
 After pre-processing the groceries data, I feed the list of items and
 carts to the `apriori` function in `arules`. After a bit of trial and
 error, I decided to use the following parameters: `support = 0.0012`,
-`confidence = 0.8`, and `maxlen = 10`. I decided to decrease the support
-threshold because a high support requirement was not returning
-interesting associations. I increase the confidence threshold in order
-to filter out weaker associations, and my max length is set at 10
-because I did not want length to be a binding constraint. I wanted to
-see all rules that meet my support and confidence threshold, regardless
-of length.
+`confidence = 0.8`, and `maxlen = 10`. I use a low support threshold
+because a high support requirement was not returning interesting
+associations. I increase the confidence threshold in order to filter out
+weaker associations, and my max length is set at 10 because I did not
+want length to be a binding constraint. I wanted to see all rules that
+meet my support and confidence threshold, regardless of length. The
+following plots summarize the relationship between support, lift and
+confidence of our rules.
 
-![](assignment_4_files/figure-markdown_strict/arules_figures-1.png)![](assignment_4_files/figure-markdown_strict/arules_figures-2.png)![](assignment_4_files/figure-markdown_strict/arules_figures-3.png)
+![](assignment_4_files/figure-markdown_strict/arules_figures-1.png)![](assignment_4_files/figure-markdown_strict/arules_figures-2.png)
 
 The following table lists the 10 rules with highest lift values. Recall
 that lift is a measure of how much the probability of observing the LHS
@@ -556,15 +556,15 @@ tag](output/tabs_figs/wholemilk_just.png)
 ![](output/tabs_figs/nomilk_beersodasausage.png)
 ![](output/tabs_figs/nomilk_candy.png)
 
-![The “no milk tag picks out more snack and alcohol items and less
-traditional grocery items”. Items associated with “whole milk” are
+![The “no milk” tag picks out more snack and alcohol items and less
+traditional grocery items. Items associated with “whole milk” are
 typical grocery bundles](output/tabs_figs/wholemilk_basiccart.png)
 
 The following tables clearly show the same trend that the above graphs
 illustrate: items associated with the “no milk” tag tend to be snacks,
 alcohol, and other items that a non-grocery shopper might run into the
-store and buy while the “whole milk” is associated with basic, everyday
-grocery staples.
+store and buy. By contrast, “whole milk” is associated with basic,
+everyday grocery staples.
 
 <table>
 <caption>High Lift Rules: No-Milk Carts</caption>
