@@ -12,9 +12,10 @@ clusters could designate red vs white wine.
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
 After trying out various parameters for preliminary visualization, I
-found that the data points separated the most with total.sulfur.dioxide
-and free.sulfur.dioxide parameters. These properties will later be shown
-to be the most crucial aspects in the principal component definitions.
+found that the data points separated the most with
+`total.sulfur.dioxide` and `free.sulfur.dioxide` parameters. These
+properties will later be shown to be the most crucial aspects in the
+principal component definitions.
 
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-3-1.png)
 
@@ -27,8 +28,8 @@ purposes.
 
 When graphing the principal components on one another, there is a clear
 separation in the two colors of wine. Specifically, reds appear to have
-low magnitudes of PC1 and PC2 and whites appear to have higher
-magnitudes of PC1 and PC2.
+low magnitudes of `PC1` and `PC2` and whites appear to have higher
+magnitudes of `PC1` and `PC2.`
 
     ## Warning: The shape palette can deal with a maximum of 6 discrete values because
     ## more than 6 becomes difficult to discriminate; you have 7. Consider
@@ -47,13 +48,14 @@ in the 5-6 range. We will return to this fact at the final table.
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-6-1.png)
 
 As state prior, the dominant force in the principal components was the
-sulfur content. In PC1 total.sulfur.dioxide stood out as the classifying
-feature from free.sulfur dioxide by several orders of magnitude.
+sulfur content. In `PC1` `total.sulfur.dioxide` stood out as the
+dominant classifying feature from `free.sulfur.dioxide` dioxide by
+several orders of magnitude.
 
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-7-1.png)
 
-PC2 is defined by free.sulfur.dioxide as well as a lack of
-total.sulfur.dioxide, the main feature of PC1.
+‘PC2’ is defined by ‘free.sulfur.dioxide’ as well as a lack of
+‘total.sulfur.dioxide’, the main feature of ‘PC1.’
 
 <table>
 <caption>Color/Quality Table</caption>
@@ -187,22 +189,22 @@ Color/Quality Table
 
 This table presents the noise in the data in a much more manageable way.
 What becomes immediately apparent is the clusters ability to determine
-which color a type of wine is. Cluster 2 is overwhelmingly white, while
-cluster 4 is decidedly red. It’s also clear that red wines are tend to
-have large negative values or small positive values for PC1 while white
-tend to have large positive values or low negative values for PC1,
-indicating that the main difference between red and white wine is the
-total.sulfur.dioxide present.
+which ‘color’ a type of wine is. Cluster 5 is overwhelmingly white,
+while cluster 1 is decidedly red. It’s also clear that red wines are
+tend to have large negative values or small positive values for ‘PC1’
+while white tend to have large positive values or low negative values
+for ‘PC1’, indicating that the main difference between red and white
+wine is the total.sulfur.dioxide present.
 
-The average quality for each color/cluster demonstrates a disconnect
+The average quality for each ‘color’/‘cluster’ demonstrates a disconnect
 between the chemical contents of the wine and it’s subjective score.
 While there is some variance between the clusters the range between the
-highest rated color/cluster does not exceed 2 scores of quality. These
-results could indicate that wine quality is not determined by chemical
-content. It could also mean that while vast differences in quality are
-easily identifiable, what separates a wine with score of 8 verses a
-score of 9 in terms of quality is negligible enough to be come obscured
-over successive tastings.
+highest rated ‘color’/‘cluster’ does not exceed 2 scores of quality.
+These results could indicate that wine ‘quality’ is not determined by
+chemical content. It could also mean that while vast differences in
+‘quality’ are easily identifiable, what separates a wine with score of 8
+verses a score of 9 in terms of ‘quality’ is negligible enough to be
+come obscured over successive tastings.
 
 ## Problem 2 - Market Segmentation
 
@@ -226,7 +228,7 @@ of tweets).
 
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-9-1.png)
 
-This cluster, number , the “Chatters” cluster, is both a distinct
+This cluster, number 2, the “Chatters” cluster, is both a distinct
 category and also a useful baseline for outlining some general trends.
 Firstly, members of this cluster primarily use Twitter as a social
 platform to chat and share photos, and shop, with no particular topic or
@@ -237,7 +239,7 @@ going on in the world at least some of the time.
 
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-10-1.png)
 
-The second meaningful cluster we found, cluster , is our “Health and
+The second meaningful cluster we found, cluster 6, is our “Health and
 Fitness” cluster. This cluster primarily uses twitter to talk about
 fitness and health related activities and little else. There is also a
 second cluster of users that has similar twitter behavior, just at a
@@ -245,7 +247,7 @@ lower volume.
 
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-11-1.png)
 
-The third cluster we found, cluster , is our “College Gamers” cluster.
+The third cluster we found, cluster 6, is our “College Gamers” cluster.
 Members of this cluster primarily tweet about online gaming and their
 college/university, so we can assume they are primarily young college
 students. They also tweet about playing sports a little more than
@@ -253,7 +255,7 @@ average.
 
 ![](assignment_4_files/figure-markdown_strict/unnamed-chunk-12-1.png)
 
-Our fourth cluster, cluster , is our “Sports Dads” cluster. Members of
+Our fourth cluster, cluster 10, is our “Sports Dads” cluster. Members of
 this cluster primarily tweet about sports fandom and religion, and
 disproportionately more about parenting as well. Our analysis indicates
 that there is an “Average” Twitter user, that tweets a little about a
