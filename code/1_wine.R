@@ -68,18 +68,19 @@ q1_quality_plot = qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), sha
 
 #Due to large amount of data points, it is difficult to visualize quality alongside clusterID_wine, but outlying points in the top left of graph show a possible range in quality of 3 to 8 for cluster 3.
 
-PCA_Scores =  wine_PCA$rotation %>%
+q1_PCA_Scores =  wine_PCA$rotation %>%
   as.data.frame() %>%
   rownames_to_column('Category')
 
-q1_PC1_plot = ggplot(PCA_Scores) +
+q1_PC1_plot = ggplot(q1_PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC1), y=PC1)) +
   coord_flip()
 
-q1_PC2_plot = ggplot(PCA_Scores) +
+q1_PC2_plot = ggplot(q1_PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC2), y=PC2)) +
   coord_flip()
 
+q1_PC1_plot
 q1_PC2_plot
 
 q1_cluster_counts_table = wine_PCLuster %>%
