@@ -42,31 +42,39 @@ path <- here()
 After centering and re-scaling the data, I ran a for loop to generate an elbow plot so I could determine which k I should use to define my clusters.
 
 ```{r, include=TRUE}
-plot(SSE_grid)
+plot(SSE_grid_wine)
 ```
 
 I tried several k values and settled on 7 after comparing how well the clusters could designate red vs white wine.
 
 ```{r, include=TRUE}
-q1_sulfur_plot
+#q1_sulfur_plot
+#qplot(total.sulfur.dioxide, free.sulfur.dioxide, data=wine, color=factor(clust1$cluster), shape = color)
+ggplot(wine) +
+  geom_point(aes(x=total.sulfur.dioxide,y=free.sulfur.dioxide, 
+                 color = factor(clusterID_wine),
+                 shape = color))
 ```
 
 After trying out various parameters for preliminary visualization, I found that the data points separated the most with total.sulfur.dioxide and free.sulfur.dioxide parameters. These properties will later be shown to be the most crucial aspects in the principal component definitions.
 
-```{r, include=TRUE}
+```{r message=FALSE, warning=FALSE, include=TRUE}
 plot(wine_PCA)
 ```
+
 The PCA for this data was able to explain the vast majority of the information with a single dimension. I elected to choose 2 for since there are two distinct types of wine in the data set and for visualization purposes.
 
 
-```{r, include=TRUE}
+```{r message=FALSE, warning=FALSE, include=TRUE}
 q1_color_plot
 ```
+
 When graphing the principal components on one another, there is a clear separation in the two colors of wine. Specifically, reds appear to have low magnitudes of PC1 and PC2 and whites appear to have high magnitudes of PC1 and PC2.
 
 ```{r, include=TRUE}
-qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), shape=factor(clusterID))
+qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), shape=factor(clusterID_wine))
 ```
+
 The quality ratings were more difficult to visualize as they relate to the clusters due to the number of values in the features. What is noticeable is that quality does not appear to be associated with either of the principal components, but is rather spread out through the data in the 5-6 range. We will return to this fact at the final table.
 
 ```{r, include=TRUE}
@@ -74,6 +82,7 @@ ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC1), y=PC1)) +
   coord_flip()
 ```
+
 As state prior, the dominant force in the principal components was the sulfur content. In PC1 total.sulfur.dioxide stood out as the classifying feature from free.sulfur dioxide by several orders of magnitude.
 
 ```{r, include=TRUE}
@@ -81,6 +90,7 @@ ggplot(PCA_Scores) +
   geom_col(aes(x=reorder(Category,PC2), y=PC2)) +
   coord_flip()
 ```
+
 PC2 is defined by free.sulfur.dioxide as well as a lack of total.sulfur.dioxide, the main feature of PC1.
 
 ```{r, include=TRUE}
@@ -91,6 +101,35 @@ This table presents the noise in the data in a much more manageable way. What be
 
 The average quality for each color/cluster demonstrates a disconnect between the chemical contents of the wine and it's subjective score. While there is some variance between the clusters the range between the highest rated color/cluster does not exceed 2 scores of quality. These results could indicate that wine quality is not determined by chemical content. It could also mean that while vast differences in quality are easily identifiable, what separates a wine with score of 8 verses a score of 9 in terms of quality is negligible enough to be come obscured over successive tastings.
 
+
+## Problem 2 - Market Segmentation
+
+To answer this question, we performed some preliminary data cleaning/exploration, and then employed both PCA and K-means clustering to understand how the market was laid out. After extensively comparing the results of clustering and PCA, we came to the conclusion that PCA was identifying similar/the same trends as clustering, but was much harder to interpret and display graphically. So we  chose to visualize our data by plotting the centroids of the clusters we identified along as meaningful axes as we could, do display the patterns in market segmentation. We chose 10 clusters for our analysis. Preliminary investigation (**elbow plot**) showed that there might be as little as 5 or 6 naturally, but we found that around 10 created a few very meaningful and highly distinct clusters that we wanted to single out for presentation. We did analyses with both scaled and unscaled variables, and have chosen to present the unscaled ones as the axes are easily measurable as "Mean number of tweets for users in a cluster" and all observations are already on the same scale in the original data (number of tweets).
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+grid_arrange_shared_legend(chatters_current, chatters_photos, chatters_shopping)
+```
+
+This cluster, number \JustChatting, the "Chatters" cluster, is both a distinct category and also a useful baseline for outlining some general trends. Firstly, members of this cluster primarily use Twitter as a social platform to chat and share photos, and shop, with no particular topic or area of interest. We can also note here that there is very little spread on the leftmost graph of **current_events**, indicating that most Twitter users who follow 'NutrientH20' use twitter to talk about what's going on in the world at least some of the time.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+grid_arrange_shared_legend(healthnuts_fitness,healthnuts_chatter)
+```
+
+The second meaningful cluster we found, cluster \CrossFitKids, is our "Health and Fitness" cluster. This cluster primarily uses twitter to talk about fitness and health related activities and little else. There is also a second cluster of users that has similar twitter behavior, just at a lower volume.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+grid_arrange_shared_legend(gamers_college,gamers_sports,gamers_chatter)
+```
+
+The third cluster we found, cluster \CollegeGamers, is our "College Gamers" cluster. Members of this cluster primarily tweet about online gaming and their college/university, so we can assume they are primarily young college students. They also tweet about playing sports a little more than average.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+grid_arrange_shared_legend(sportsdads_religion,sportsdads_parents,sportsdads_chatter)
+```
+
+Our fourth cluster, cluster \BallsNBibles, is our "Sports Dads" cluster. Members of this cluster primarily tweet about sports fandom and religion, and disproportionately more about parenting as well. 
+Our analysis indicates that there is an "Average" Twitter user, that tweets a little about a wide variety of topics, but people who produce high volumes of tweets tend to tweet about very specific areas of interest. There were a number of other interesting clusters, like a "News & Politics" cluster that we found, but in an effort to keep the analysis relatively short, we chose these 4.
 
 ## Problem 3 - GrocRules
 

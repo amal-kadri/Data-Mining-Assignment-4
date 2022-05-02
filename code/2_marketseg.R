@@ -1,4 +1,5 @@
 # market segmentation
+path <- here()
 social_marketing <- read_csv(file.path('data','social_marketing.csv'))
 
 ########################################
@@ -202,7 +203,7 @@ gamers_chatter = ggplot(centroids) +
                  shape = factor(clusterID==CollegeGamers),
                  size = factor(clusterID==CollegeGamers)))
 CollegeGamers_graph = grid_arrange_shared_legend(gamers_college,gamers_sports,gamers_chatter)  
-
+  
 save.image(file = file.path(path, 'output', 'tabs_figs', '2_marketseg_tabsNfigs.RData'))
 
   

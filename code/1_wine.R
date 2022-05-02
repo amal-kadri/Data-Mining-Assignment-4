@@ -1,4 +1,5 @@
 # wine
+path <- here()
 wine = read.csv('data/wine.csv')
 
 # removed single significant outlier for more accurate plot dimensions 
@@ -15,15 +16,15 @@ sigma = attr(Y,"scaled:scale")
 
 #Jennifer elbow plot
 k_grid = seq(2,20,by=1)
-SSE_grid = foreach(k = k_grid, .combine = 'c') %do% {
+SSE_grid_wine = foreach(k = k_grid, .combine = 'c') %do% {
   cluster_k = kmeans(Y,k,nstart = 25)
   cluster_k$tot.withinss}
 
-plot(SSE_grid)
+plot(SSE_grid_wine)
 
 #cluster
 clust1 = kmeans(Y, 7, nstart=25)
-clusterID = clust1$cluster
+clusterID_wine = clust1$cluster
 
 #cluster centers
 clust1$center[1,]*sigma + mu
@@ -39,10 +40,10 @@ centers = as.data.frame(clust1[["centers"]])
 
 # Best differentiation of cluster membership is total.sulfur.dioxide and free.sulfur.dioxide
 q1_sulfur_plot = qplot(total.sulfur.dioxide, free.sulfur.dioxide, data=wine, color=factor(clust1$cluster), shape = color)
-
+qplot(total.sulfur.dioxide, free.sulfur.dioxide, data=wine, color=factor(clust1$cluster), shape = color)
 # wrangle for PCA
 rownames(wine) <- wine$`...1`
-wine_clustered = cbind(wine,clusterID) %>%
+wine_clustered = cbind(wine,clusterID_wine) %>%
   mutate(`...1` = NULL)
 
 #######################################################
@@ -56,16 +57,16 @@ wine_varaince_plot = plot(wine_PCA)
 wine_PCLuster = cbind(wine_clustered, wine_PCA$x)
 
 #color plot
-q1_color_plot = qplot(PC2, PC1, data=wine_PCLuster, color=color, shape=factor(clusterID))
+q1_color_plot = qplot(PC2, PC1, data=wine_PCLuster, color=color, shape=factor(clusterID_wine))
 
 
 #reds appear to have low magnitudes of PC1 and PC2 and whites appear to have high magnitudes of PC1 and PC2
 
 #quality plot
-q1_quality_plot = qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), shape=factor(clusterID))
+q1_quality_plot = qplot(PC2, PC1, data=wine_PCLuster, color=factor(quality), shape=factor(clusterID_wine))
 
 
-#Due to large amount of data points, it is difficult to visualize quality alongside clusterID, but outlying points in the top left of graph show a possible range in quality of 3 to 8 for cluster 3.
+#Due to large amount of data points, it is difficult to visualize quality alongside clusterID_wine, but outlying points in the top left of graph show a possible range in quality of 3 to 8 for cluster 3.
 
 PCA_Scores =  wine_PCA$rotation %>%
   as.data.frame() %>%
@@ -82,7 +83,7 @@ q1_PC2_plot = ggplot(PCA_Scores) +
 q1_PC2_plot
 
 q1_cluster_counts_table = wine_PCLuster %>%
-  group_by(clusterID, color) %>%
+  group_by(clusterID_wine, color) %>%
   summarise(Count = n(), 
             PC1 = mean(PC1), 
             PC2 = mean(PC2),
