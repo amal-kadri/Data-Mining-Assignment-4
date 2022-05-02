@@ -133,10 +133,9 @@ Our analysis indicates that there is an "Average" Twitter user, that tweets a li
 
 ## Problem 3 - GrocRules
 
-After pre-processing the groceries data, I feed the list of items and carts to the `apriori` function in `arules`. After a bit of trial and error, I decided to use the following parameters: `support = 0.0012`, `confidence = 0.8`, and `maxlen = 10`. I decided to decrease the support threshold because a high support requirement was not returning interesting associations. I increase the confidence threshold in order to filter out weaker associations, and my max length is set at 10 because I did not want length to be a binding constraint. I wanted to see all rules that meet my support and confidence threshold, regardless of length. 
+After pre-processing the groceries data, I feed the list of items and carts to the `apriori` function in `arules`. After a bit of trial and error, I decided to use the following parameters: `support = 0.0012`, `confidence = 0.8`, and `maxlen = 10`. I use a low support threshold because a high support requirement was not returning interesting associations. I increase the confidence threshold in order to filter out weaker associations, and my max length is set at 10 because I did not want length to be a binding constraint. I wanted to see all rules that meet my support and confidence threshold, regardless of length. The following plots summarize the relationship between support, lift and confidence of our rules.
 
 ```{r arules_figures, include = TRUE}
-conf_sup
 lift_sup
 twokey
 ```
@@ -167,9 +166,9 @@ I want to investigate those carts that do not include these popular items. To do
 
 ![](output/tabs_figs/nomilk_beersodasausage.png) ![](output/tabs_figs/nomilk_candy.png) 
 
-![The "no milk tag picks out more snack and alcohol items and less traditional grocery items". Items associated with "whole milk" are typical grocery bundles](output/tabs_figs/wholemilk_basiccart.png)
+![The "no milk" tag picks out more snack and alcohol items and less traditional grocery items. Items associated with "whole milk" are typical grocery bundles](output/tabs_figs/wholemilk_basiccart.png)
 
-The following tables clearly show the same trend that the above graphs illustrate: items associated with the "no milk" tag tend to be snacks, alcohol, and other items that a non-grocery shopper might run into the store and buy while the "whole milk" is associated with basic, everyday grocery staples. 
+The following tables clearly show the same trend that the above graphs illustrate: items associated with the "no milk" tag tend to be snacks, alcohol, and other items that a non-grocery shopper might run into the store and buy. By contrast, "whole milk" is associated with basic, everyday grocery staples. 
 
 ```{r nomilk, include = TRUE}
 nomilk_tab
