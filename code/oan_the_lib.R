@@ -10,6 +10,7 @@ library(foreach)
 library(mosaic)
 library(foreach)
 library(iterators)
+library(knitr)
 library(gridExtra)
 library(grid)
 
